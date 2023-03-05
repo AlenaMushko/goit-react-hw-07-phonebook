@@ -4,6 +4,7 @@ import { theme } from '../../styles/theme';
 export const ElWraper = styled.div`
 display: flex;
 gap:16px;
+font-size:20px;
 justify-content: space-around;
 align-items: center;
 padding: 12px;

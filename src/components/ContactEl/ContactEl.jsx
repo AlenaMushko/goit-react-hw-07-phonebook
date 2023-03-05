@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { ElWraper, ElButton } from './ContactEl.styled';
 
-export const ContactEl = ({ name, number, onDelete }) => {
+export const ContactEl = ({ name, phone, onDelete }) => {
   return (
     <ElWraper>
       <p>{name}:</p>
-      <span>{number}</span>
+      <span>{phone}</span>
       <ElButton type="buttn" onClick={onDelete}>
         Delete
       </ElButton>
@@ -15,6 +15,6 @@ export const ContactEl = ({ name, number, onDelete }) => {
 
 ContactEl.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

@@ -11,18 +11,16 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-
 export const contactsSlice = createSlice({
   name: 'phoneBook',
   initialState: {
     contacts: [],
     isLoading: false,
     error: null,
-    filter: '',
   },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
-    [fetchContacts.fulfilled](state, action) {
+    [fetchContacts.fulfilled]:(state, action) =>{
       state.isLoading = false;
       state.error = null;
       state.contacts = action.payload;
@@ -30,7 +28,7 @@ export const contactsSlice = createSlice({
     [fetchContacts.rejected]: handleRejected,
 
     [addContact.pending]: handlePending,
-    [addContact.fulfilled](state, action) {
+    [addContact.fulfilled]:(state, action) => {
       state.isLoading = false;
       state.error = null;
       state.contacts.push(action.payload);
@@ -38,25 +36,17 @@ export const contactsSlice = createSlice({
     [addContact.rejected]: handleRejected,
 
     [deleteContact.pending]: handlePending,
-    [deleteContact.fulfilled](state, action) {
+    [deleteContact.fulfilled]:(state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.contacts = state.contacts.filter(
-        item => item.id !== action.payload
+      const contactId = state.contacts.findIndex(
+        item => item.id === action.payload.id
       );
+      state.contacts.splice(contactId, 1);
     },
     [deleteContact.rejected]: handleRejected,
-
-    changeFilter: (state, action) => {
-      state.filter = action.payload.toLowerCase();
-    },
   },
 });
-
-    // changeFilter: (state, action) => {
-    //   state.filter = action.payload.toLowerCase();
-    // },
-
 
 const persistConfig = {
   key: 'root',
@@ -72,3 +62,4 @@ export const persisteContactsReducer = persistReducer(
   persistConfig,
   contactsSlice.reducer
 );
+

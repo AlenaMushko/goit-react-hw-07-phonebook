@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import {selectFilter } from 'redux/selectors';
 import { FilterInput, FilterContainer } from './Filter.styled';
-import { changeFilter } from 'redux/contactsSlice';
+
 
 export const FilterContacts = () => {
   const filter = useSelector(selectFilter);
@@ -12,7 +12,7 @@ export const FilterContacts = () => {
   const filterId = nanoid();
 
   const changePageFilter = e => {
-    dispatch(changeFilter(e.currentTarget.value));
+    dispatch(selectFilter(e.currentTarget.value));
   };
   return (
     <FilterContainer>

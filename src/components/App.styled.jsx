@@ -19,3 +19,9 @@ export const ContactsTitle = styled.h2`
   font-size: 42px;
   margin-top: 24px;
 `;
+
+export const Error = styled.b`
+  color: ${theme.colors.orange};
+  text-align: center;
+  font-size: 42px;
+`;
