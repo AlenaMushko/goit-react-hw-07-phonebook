@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 import { Form, FormInput, FormButton } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,7 +38,7 @@ export const ContactForm = () => {
     isContactRecorded
       ? alert(`${name} is alreadi in contacts`)
       : dispatch(addContact({ id: nanoid(), name, number }));
-    toast.success("new contact added");
+    toast.success('new contact added');
     setName('');
     setNumber('');
   };

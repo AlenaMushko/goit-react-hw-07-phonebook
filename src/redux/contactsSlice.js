@@ -17,18 +17,31 @@ export const contactsSlice = createSlice({
     contacts: [],
     isLoading: false,
     error: null,
+    initialContacts: [],
+  },
+  reducers: {
+    filterContacts: (state, action) => {
+      if (action.payload === '') {
+        state.contacts = state.initialContacts;
+      } else {
+        state.contacts = state.initialContacts.filter(item =>
+          item.name.toLowerCase().includes(action.payload.toLowerCase())
+        );
+      }
+    },
   },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
-    [fetchContacts.fulfilled]:(state, action) =>{
+    [fetchContacts.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.contacts = action.payload;
+      state.initialContacts = action.payload;
     },
     [fetchContacts.rejected]: handleRejected,
 
     [addContact.pending]: handlePending,
-    [addContact.fulfilled]:(state, action) => {
+    [addContact.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.contacts.push(action.payload);
@@ -36,7 +49,7 @@ export const contactsSlice = createSlice({
     [addContact.rejected]: handleRejected,
 
     [deleteContact.pending]: handlePending,
-    [deleteContact.fulfilled]:(state, action) => {
+    [deleteContact.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
       const contactId = state.contacts.findIndex(
@@ -51,10 +64,9 @@ export const contactsSlice = createSlice({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['filter'],
 };
 
-export const { changeFilter } = contactsSlice.actions;
+export const { filterContacts } = contactsSlice.actions;
 
 export default contactsSlice.reducer;
 
@@ -62,4 +74,3 @@ export const persisteContactsReducer = persistReducer(
   persistConfig,
   contactsSlice.reducer
 );
-

@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useDispatch, useSelector } from 'react-redux';
-import {selectFilter } from 'redux/selectors';
 import { FilterInput, FilterContainer } from './Filter.styled';
-
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/contactsSlice';
 
 export const FilterContacts = () => {
-  const filter = useSelector(selectFilter);
+  const filterId = nanoid();
   const dispatch = useDispatch();
 
-  const filterId = nanoid();
-
-  const changePageFilter = e => {
-    dispatch(selectFilter(e.currentTarget.value));
+  const [FilterValue, setFilterValue] = useState('');
+  const changeFilter = e => {
+    setFilterValue(e.currentTarget.value);
+    dispatch(filterContacts(e.currentTarget.value));
   };
+
   return (
     <FilterContainer>
       <label htmlFor={filterId}>
@@ -22,8 +22,8 @@ export const FilterContacts = () => {
           id={filterId}
           type="text"
           name="filter"
-          value={filter}
-          onChange={changePageFilter}
+          value={FilterValue}
+          onChange={changeFilter}
         />
       </label>
     </FilterContainer>
