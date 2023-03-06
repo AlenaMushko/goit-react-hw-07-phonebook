@@ -5,7 +5,7 @@ export const ElWraper = styled.div`
 display: flex;
 gap:16px;
 font-size:20px;
-justify-content: space-around;
+justify-content: space-evenly;
 align-items: center;
 padding: 12px;
   background-color: ${theme.colors.light};
