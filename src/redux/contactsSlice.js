@@ -17,6 +17,18 @@ export const contactsSlice = createSlice({
     contacts: [],
     isLoading: false,
     error: null,
+    initialContacts: [],
+  },
+  reducers: {
+    filterContacts: (state, action) => {
+      if (action.payload === '') {
+        state.contacts = state.initialContacts;
+      } else {
+        state.contacts = state.initialContacts.filter(item =>
+          item.name.toLowerCase().includes(action.payload.toLowerCase())
+        );
+      }
+    },
   },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
@@ -24,6 +36,7 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.contacts = action.payload;
+      state.initialContacts = action.payload;
     },
     [fetchContacts.rejected]: handleRejected,
 
@@ -51,10 +64,9 @@ export const contactsSlice = createSlice({
 const persistConfig = {
   key: 'root',
   storage,
-  // blacklist: ['filter'],
 };
 
-export const { changeFilter } = contactsSlice.actions;
+export const { filterContacts } = contactsSlice.actions;
 
 export default contactsSlice.reducer;
 
