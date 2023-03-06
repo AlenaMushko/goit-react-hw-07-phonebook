@@ -14,7 +14,7 @@ import { filterSlice } from './filterSlice';
 export const store = configureStore({
   reducer: {
     phoneBook: persisteContactsReducer,
-    filter: filterSlice.reducer,
+    // filter: filterSlice.reducer,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({
