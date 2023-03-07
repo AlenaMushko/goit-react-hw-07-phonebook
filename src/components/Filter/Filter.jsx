@@ -11,7 +11,7 @@ export const FilterContacts = () => {
   const [FilterValue, setFilterValue] = useState('');
   const changeFilter = e => {
     setFilterValue(e.currentTarget.value);
-    dispatch(filterContacts(e.currentTarget.value));
+    dispatch(filterContacts(e.currentTarget.value.toLowerCase()));
   };
 
   return (

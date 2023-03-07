@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const handlePending = state => {
@@ -17,17 +15,11 @@ export const contactsSlice = createSlice({
     contacts: [],
     isLoading: false,
     error: null,
-    initialContacts: [],
+    filter: [],
   },
   reducers: {
     filterContacts: (state, action) => {
-      if (action.payload === '') {
-        state.contacts = state.initialContacts;
-      } else {
-        state.contacts = state.initialContacts.filter(item =>
-          item.name.toLowerCase().includes(action.payload.toLowerCase())
-        );
-      }
+      state.filter = action.payload;
     },
   },
   extraReducers: {
@@ -61,16 +53,8 @@ export const contactsSlice = createSlice({
   },
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
 export const { filterContacts } = contactsSlice.actions;
 
-export default contactsSlice.reducer;
+export const persisteContactsReducer = contactsSlice.reducer;
 
-export const persisteContactsReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
+
